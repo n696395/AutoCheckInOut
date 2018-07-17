@@ -58,7 +58,7 @@ namespace AutoCheckIn
                     left_inout.SendKeys("下班");
 
                 IWebElement submit_button = _Driver.FindElement(By.Name("submit_button"));
-                //submit_button.Click();
+                submit_button.Click();
             }
             catch(WebDriverTimeoutException toex)
             {
