@@ -10,7 +10,6 @@ namespace AutoCheckIn
     {
         static string configFileNamePath = "./config.xml";
         static Random rnd = new Random();
-        static int DelaySecond = rnd.Next(1, 900); //1sec to 900 sec(15 min)
 
         public static void Main(string[] args)
         {
@@ -21,10 +20,12 @@ namespace AutoCheckIn
                 xmldoc.Load(configFileNamePath);
                 string Name = xmldoc.SelectSingleNode("/root/name").InnerText.Trim();
                 string URL = xmldoc.SelectSingleNode("/root/url").InnerText.Trim();
+                string delaytime = xmldoc.SelectSingleNode("/root/delay").InnerText.Trim();
+                int DelaySecond = rnd.Next(1, int.Parse(delaytime)); // minute
 
                 //create Driver
                 IWebDriver driver = new PhantomJSDriver();
-                checkstatus status = (checkstatus)Enum.Parse(typeof(checkstatus), args[0]);
+                checkstatus status = (checkstatus)Enum.Parse(typeof(checkstatus), args[0].ToUpper());
                CheckInOut chk = new CheckInOut(driver, URL, Name, status);
 
                 //Check before chcek In/Out
@@ -32,12 +33,13 @@ namespace AutoCheckIn
                 if(before_result == true)//Already Check
                 {
                     chk.TakingScreenShoot("BeforeCheckInOut");
-                    Console.WriteLine($"Already checked, Name={Name}, Status={args[0]}, Time={DateTime.Now.ToString("yyyyMMddHHmmss")}");
+                    Console.WriteLine($"Already checked, Name={Name}, Status={status.ToString("g")}, Time={DateTime.Now.ToString("yyyyMMddHHmmss")}");
                     chk?.close();
                     return;
                 }
 
                 //delay
+                Console.WriteLine($"Wait {DelaySecond} sec.");
                 Thread.Sleep(DelaySecond * 1000);
 
                 //start check
@@ -46,9 +48,9 @@ namespace AutoCheckIn
                 bool after_result = chk.IsChecked(Name, status);
                 chk.TakingScreenShoot("AfterCheckInOut");
                 if (after_result == false)
-                    Console.WriteLine($"Check Failed, Name={Name}, Status={args[1]}, Time={DateTime.Now.ToString("yyyyMMddHHmmss")}");
+                    Console.WriteLine($"Check Failed, Name={Name}, Status={status.ToString("g")}, Time={DateTime.Now.ToString("yyyyMMddHHmmss")}");
                 else
-                    Console.WriteLine($"Check OK, Name={Name}, Status={args[1]}, Time={DateTime.Now.ToString("yyyyMMddHHmmss")}");
+                    Console.WriteLine($"Check OK, Name={Name}, Status={status.ToString("g")}, Time={DateTime.Now.ToString("yyyyMMddHHmmss")}");
 
                 chk.close();
             }

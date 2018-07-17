@@ -52,7 +52,7 @@ namespace AutoCheckIn
                 left_displayname.SendKeys(_Name);
 
                 IWebElement left_inout = _Driver.FindElement(By.Name("left_inout"));
-                if(_Status == checkstatus.In)
+                if(_Status == checkstatus.IN)
                     left_inout.SendKeys("上班");
                 else //checkstatus.Out
                     left_inout.SendKeys("下班");
@@ -107,10 +107,10 @@ namespace AutoCheckIn
                 IWebElement table = _Driver.FindElement(By.ClassName("right_main")).FindElement((By.ClassName("right_main_text")));
                 IReadOnlyList<IWebElement> tableRow = table.FindElements(By.TagName("tr"));
 
-                string ChtStatus = status == checkstatus.In ? "上班" : "下班";
+                string ChtStatus = status == checkstatus.IN ? "上班" : "下班";
 
                 var ss = from row in tableRow where row.Text.Contains(Name) && row.Text.Contains(ChtStatus) select row;
-                if (ss.Count() > 0)
+                if (ss?.Count() > 0)
                 {
                     foreach (var row in tableRow)
                     {
@@ -121,7 +121,7 @@ namespace AutoCheckIn
                         }
                     }
                 }
-                Console.WriteLine($"Check In/Out Fail, Can not find Name={Name}, CheckIn/Out={status}");
+                Console.WriteLine($"Can not find Name={Name}, CheckIn/Out={status}");
                 return false;
             }catch(Exception ex)
             {
@@ -205,7 +205,7 @@ namespace AutoCheckIn
     /// </summary>
     public enum checkstatus:byte
     {
-        In=1,
-        Out=2
+        IN=1,
+        OUT=2
     }
 }
