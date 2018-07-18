@@ -16,7 +16,10 @@ Automatically chekc in/out for PHP Timeclock using selenium and phantomjs.
 - Run program using command line
     - Check In : `./AutoCheckIn.exe In`
     - Check Out : `./AutoCheckIn.exe Out`
-
+- Add to task scheduler
+	- Run `./Install.bat`
+- Remove from task scheduler
+	- Run `./UnInstall.bat`
 # TODO
-- [ ] Support task schedule
+- [x] Support task schedule
 - [ ] Combine with Google Calendar or others
