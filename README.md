@@ -1,5 +1,5 @@
 # AutoCheckInOut
-Automatically chekc in/out for PHP Timeclock using selenium and phantomjs.
+Automatically chekc in/out for [PHP Timeclock](http://timeclock.sourceforge.net/) using selenium and phantomjs.
 
 # How to use
 - Get binary from [Release](https://github.com/n696395/AutoCheckInOut/releases)
@@ -9,7 +9,7 @@ Automatically chekc in/out for PHP Timeclock using selenium and phantomjs.
 <root>
 	<url>http://localhost/timeclock1/timeclock.php</url>
 	<name>YourName</name>
-	<delay>15</delay><!-- Minute -->
+	<delay>15</delay><!-- Second -->
 </root>
 ```
 
@@ -23,3 +23,4 @@ Automatically chekc in/out for PHP Timeclock using selenium and phantomjs.
 # TODO
 - [x] Support task schedule
 - [ ] Combine with Google Calendar or others
+- [ ] E-mail notify
