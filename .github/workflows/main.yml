@@ -1,0 +1,19 @@
+name: main
+
+on: workflow_dispatch
+
+jobs:
+
+  build_on_linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: run script
+        run: echo running...
+
+      - name: Run second script
+        run: |
+          echo running
+          echo second
+          echo script
+          date
